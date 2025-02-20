@@ -7,5 +7,6 @@ class Refeicao(db.Model):
     plate_name = db.Column(db.String(40), nullable=False)
     weight = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(80), nullable=False)
-    date = db.Column(db.Date, default=datetime) 
-    diet = db.Column(db.Boolean(), nullable=False)
+    diet = db.Column(db.Boolean, nullable=False, default=False)
+
+#    date = db.Column(db.Date, default=datetime) 

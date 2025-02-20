@@ -15,16 +15,24 @@ db.init_app(app)
 def create_refeicao():
     data = request.json
     plate_name = data.get("plate_name")
-    description = data.get("description")
     weight = data.get("weight")
-    diet =data.get("diet")
-    date = datetime
+    description = data.get("description")
+    diet = data.get("diet")
 
-    if plate_name and description and weight and diet and date:
-        refeicao = Refeicao(nome_refeicao=plate_name, description=description, weight=weight, diet=diet, date=date)
+    if plate_name and description and weight and diet:
+        refeicao = Refeicao(plate_name=plate_name, description=description, weight=weight, diet=diet)
         db.session.add(refeicao)
         db.session.commit()
+        return jsonify({"mensagem": "Refeição adicionada com sucesso!"})
+    
+    return jsonify({"mensagem": "Erro!"})
         
+@app.route('/refeicao/<int:id_refeicao>', methods=['GET'])
+def read_refeicao(id_refeicao):
+    refeicao = Refeicao.query.get(id_refeicao)
+
+    if id_refeicao:
+        return
 
 if __name__ == '__main__':
     app.run(debug=True)
