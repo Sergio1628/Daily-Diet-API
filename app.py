@@ -31,8 +31,10 @@ def create_refeicao():
 def read_refeicao(id_refeicao):
     refeicao = Refeicao.query.get(id_refeicao)
 
-    if id_refeicao:
-        return
+    if refeicao:
+        return {"plate_name": refeicao.plate_name}
+
+    return jsonify({"mensagem": "Refeição não encontrada!"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
