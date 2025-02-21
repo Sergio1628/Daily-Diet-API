@@ -61,9 +61,6 @@ def update_refeicao(id_refeicao):
 
     return jsonify ({"mensagem": f"Refeição {id_refeicao} atualizada com sucesso!"})
     
-           
-
-
 ''' Bloco funcional, mas como PUT, que exige todos os parametros da var refeicao no payload
     if refeicao:
         refeicao.plate_name = data.get("plate_name")
@@ -72,6 +69,19 @@ def update_refeicao(id_refeicao):
         refeicao.diet = data.get("diet")
         
         db.session.commit()'''
+
+
+@app.route('/refeicao/<int:id_refeicao>', methods=['DELETE'])
+def delete_refeicao(id_refeicao):
+    refeicao = Refeicao.query.get(id_refeicao)
+
+    if refeicao:
+        db.session.delete(refeicao)
+        db.session.commit()
+        return jsonify({"mensagem": "Refeição deletada!"})
+    
+    return jsonify({"mensagem": "Refeição não encontrada."}), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)
